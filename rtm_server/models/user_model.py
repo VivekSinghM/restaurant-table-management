@@ -10,8 +10,8 @@ class RM_USER(db.Model):
 
 
     @staticmethod
-    def get_cols_by_email(email,*columns):
-        return RM_USER.query.with_entities(columns).filter_by(email=email).first()
+    def get_pass_ID_by_email(email):
+        return RM_USER.query.with_entities(RM_USER.password,RM_USER.public_id).filter_by(email=email).first()
 
 
     @staticmethod
