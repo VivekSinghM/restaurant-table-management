@@ -1,6 +1,37 @@
-from flask import request, make_response
-from app import app
+from flask import request, make_response, jsonify
+from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime,timedelta
+import jwt
 import json
+import uuid
+
+from services.database_connector import RM_USER, db
+from app import app
+
+
+@app.route("/users")
+def users():
+    return jsonify({'user1':{'name':'vvk'}})
+
+@app.route("/signup",methods=["POST"])
+def getSignup():
+    payload= json.loads(request.data)
+    name, email, password = payload['name'], payload['email'], payload['password']
+    user = RM_USER.query.filter_by(email=email).first()
+    if not user:
+        user = RM_USER(
+            # id=RM_USER.query.query.with_entities(RM_USER.id).max(),
+            public_id = str(uuid.uuid4()),
+            name = name,
+            email = email,
+            password = generate_password_hash(password)
+        )
+        db.session.add(user)
+        db.session.commit()
+        return make_response('Signup successful',201)
+    else:
+        return make_response('User already exists go to login',202)
+
 
 @app.route("/login",methods=["POST"])
 def getLogin():
