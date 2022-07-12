@@ -41,7 +41,7 @@ def getLogin():
             401,
             {'WWW-Authenticate' : 'Basic realm ="Login required !!"'}
         )
-    (password, public_id)= RM_USER.get_public_id(payload['email'])
+    (password, public_id)= RM_USER.get_pass_ID_by_email(payload['email'])
     if not password :
         return make_response(
             'Could not verify',
