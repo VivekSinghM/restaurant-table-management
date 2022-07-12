@@ -38,6 +38,3 @@ def getSignup():
         return make_response('Signup successful',201)
     else:
         return make_response('User already exists go to login',202)
-
-if __name__=='__main__':
-    app.run(debug=True)
