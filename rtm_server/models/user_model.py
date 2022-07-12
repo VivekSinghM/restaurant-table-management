@@ -22,6 +22,6 @@ class RM_USER(db.Model):
     
     @staticmethod
     def check_user(email):
-        return not not RM_USER.query.filter_by(email=email).first()
+        return not RM_USER.query.filter_by(email=email).first()
     
 db.create_all()
