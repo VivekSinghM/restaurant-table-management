@@ -8,8 +8,8 @@ class RM_USER(db.Model):
     password = db.Column(db.String(200))
 
     @staticmethod
-    def get_public(email):
-        return RM_USER.query.with_entities(RM_USER.password,RM_USER.public_id).filter_by(email=email).first()
-    @regis
+    def get_cols_by_email(email,*columns):
+        return RM_USER.query.with_entities(columns).filter_by(email=email).first()
+    @staticmethod
     def 
 db.create_all()
