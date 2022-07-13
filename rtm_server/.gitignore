@@ -19,8 +19,11 @@ docs/_build/
 .vscode
 .tempfiles
 
+
 # Coverage reports
 htmlcov/
 .coverage
 .coverage.*
 *,cover
+
+temp_test_files/
