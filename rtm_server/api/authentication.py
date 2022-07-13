@@ -9,9 +9,9 @@ from models.user_model import RM_USER
 from services.token_manager import Token
 
 
-@app.route("/users")
-def users():
-    return jsonify({'user1':{'name':'vvk'}})
+# @app.route("/users")
+# def users():
+#     return jsonify({'user1':{'name':'vvk'}})
 
 @app.route("/signup",methods=["POST"])
 def getSignup():
