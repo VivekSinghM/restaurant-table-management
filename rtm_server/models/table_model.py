@@ -1,5 +1,3 @@
-from enum import unique
-from flask_sqlalchemy import SQLAlchemy
 from services.database_connector import db, mongo_col
 
 
