@@ -1,4 +1,5 @@
 from flask import request, make_response, jsonify
+from sqlalchemy import true 
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
 import uuid
@@ -34,6 +35,7 @@ def getSignup():
 @app.route("/login",methods=["POST"])
 def getLogin():
     payload= json.loads(request.data)
+    print(payload)
     if not payload or not payload['email'] or not payload['password']:
         print('error 401 returned')
         return make_response(
@@ -50,11 +52,10 @@ def getLogin():
         )
 
     if check_password_hash(password,payload['password']):
-
-        token= Token.get_token( public_id)
+        token= Token.get_token( public_id,30)
 
         return make_response( jsonify({ "token": token}), 201)
-
+    print(password,payload['password'])
     return make_response(
         'Could not verify',
         403,
