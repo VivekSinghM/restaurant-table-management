@@ -10,3 +10,5 @@ SQL_URI={
     #postgress: 'postgresql://user1:user1@localhost/RTM_DB',
     mysql: 'mysql://root:root@localhost/day16'
 }
+table_base_URL="/"
+base_file_path="/"

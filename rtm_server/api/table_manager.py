@@ -3,19 +3,22 @@ from app import app
 from flask import make_response, jsonify, request
 from models.table_model import Table
 from pyqrcode import create as create_qr
+from constant import base_file_path, table_base_URL
 
-tables = Table.get_all_tables()
-table_base_URL="/"
-base_file_path="/"
-try:
-    for table in tables:
-        temp_id = table.table_id
-        qr_url = table_base_URL + str(temp_id)
-        qr = create_qr(qr_url)
-        qr.svg(base_file_path + temp_id + ".svg", qr)
-        qr.png(base_file_path + temp_id + ".png", qr)
-except Exception:
-    pass
+
+def get_table_qr():
+    tables = Table.get_all_tables()
+    try:
+        for table in tables:
+            temp_id = table.table_id
+            qr_url = table_base_URL + str(temp_id)
+            qr = create_qr(qr_url)
+            qr.svg(base_file_path + temp_id + ".svg", qr)
+            qr.png(base_file_path + temp_id + ".png", qr)
+        return True
+    except Exception as e:
+        print(e)
+        return False
 
 @app.route("/table", methods=["GET"])
 def load_table_data():
@@ -26,9 +29,7 @@ def load_table_data():
 @app.route('/order', methods=['POST'])
 def order_food():
     tid = request.args.get('tid')
-    print(tid)
     order= json.loads(request.data)['order']
-    print(order)
     order_id=Table.add_order(tid,order)
     return jsonify({'order_id':order_id})
 

@@ -59,10 +59,10 @@ class Table(db.Model):
             if TempMenu.menu=={}: Menu.get_menu_dict()
             for [item_id, qty] in order.items():
                 p_order.update({TempMenu.menu[int(item_id)]['name']:qty})
-            print(p_order)
 
             order_id = str(mongo_col.insert_one(order_dict).inserted_id)
             print("Order Id:", order_id,"\n order:",order_dict)
+            
             Table.query.filter_by(table_id=id).first().table_order = order_id
             if (not Table.query.filter_by(table_id=id).first().occupied):
                 Table.update_occupied(id)
