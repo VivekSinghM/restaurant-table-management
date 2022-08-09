@@ -1,7 +1,7 @@
 import json
 from app import app
 from flask import make_response, jsonify, request
-from models.table_model import Table
+from models.table_model import Order, Table
 from pyqrcode import create as create_qr
 from constant import base_file_path, table_base_URL
 
@@ -27,10 +27,26 @@ def load_table_data():
     return make_response( jsonify(t_data) ,201)
 
 @app.route('/order', methods=['POST'])
-def order_food():
+def place_order():
     tid = request.args.get('tid')
+    print(json.loads(request.data))
     order= json.loads(request.data)['order']
     order_id=Table.add_order(tid,order)
+    return jsonify({'order_id':order_id})
+
+@app.route('/getOrders', methods=['POST'])
+def get_orders():
+    order_ids=json.loads(request.data)['ids']
+    print("getOrder order_ids:",order_ids)
+    orders=Order.get_orders(order_ids)
+    return jsonify(orders)
+
+@app.route('/order/addItems', methods=['GET','POST'])
+def add_items():
+    tid = request.args.get('tid')
+    order= json.loads(request.data)
+    [(order_id,items)]=order.items()
+    print(Table.add_items(order_id,items))
     return jsonify({'order_id':order_id})
 
 @app.route('/bill', methods=['GET'])
@@ -46,6 +62,5 @@ def genrate_tables():
 
 @app.route("/tables", methods=["GET"])
 def load_all_tables():
-    print([i.serialize for i in Table.get_all_tables()])
     t_data = Table.get_tabels_dict()
     return make_response( jsonify(t_data) ,201)
