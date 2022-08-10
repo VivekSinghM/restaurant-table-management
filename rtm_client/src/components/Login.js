@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { userTypes } from "../Constants";
 import { AuthContext } from "../context/AuthProvider";
 import css from "./login.module.css";
 
@@ -7,8 +8,6 @@ const Login = (props) => {
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
 
-    console.log("login component");
-    
     const fillEmail = (event) => {
         const temp = event.target.value;
         setemail(temp);
@@ -19,6 +18,9 @@ const Login = (props) => {
         setpassword(temp);
     };
 
+    const loginHandler=(email,password)=>{
+        login(email,password,userTypes.staff);
+    }
     return (
         <React.Fragment>
             <div className={css.container}>
@@ -41,7 +43,7 @@ const Login = (props) => {
                     <button
                         className={"text-light mt-2 " + css.signInBtn}
                         type="button"
-                        onClick={() => login(email, password)}
+                        onClick={() => loginHandler(email, password)}
                         style={{ color: "white" }}
                     >
                         <h5>Sign In</h5>
