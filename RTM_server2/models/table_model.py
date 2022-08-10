@@ -89,6 +89,7 @@ class Table(db.Model):
 
     @property
     def serialize(self):
+        print(self.table_order==None)
         return {
             self.table_id: {
                 "table_no": self.table_no,
