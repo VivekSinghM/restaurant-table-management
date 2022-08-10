@@ -1,22 +1,18 @@
-import { useState, useEffect } from "react"
-import React from 'react'
+import React, { useContext } from 'react'
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Login from './components/Login';
+import { AuthContext } from './context/AuthProvider';
 
 function App() {
-  const [data, setData] = useState([{}])
-  useEffect(()=>{
-    fetch("/users").then(
-      response=>response.json()
-      ).then(
-        data=>{
-          setData(data)
-          console.log(data)
-        }
-      )
-  },[])
-  console.log(data)
-  return (
-    <div>App</div>
-  )
+    const {isAuth} = useContext(AuthContext)
+    console.log("App");
+    return (
+        <>
+        <Switch>
+            <Route path="/login" component={Login}></Route>
+            <Route exact path="/"><Redirect to="/login"/></Route>
+        </Switch>
+        </>
+    )
 }
-
 export default App
