@@ -1,23 +1,27 @@
 import React, { createContext, useEffect, useState } from "react";
+import { AKData, userTypes } from "../Constants";
 
 export const AuthContext = createContext();
 
 const AuthProvider = (props) => {
     //check auth
     const [isAuth, setAuth] = useState(false);
+    const [userType, setUserType] = useState(userTypes.anonymous);
     const [token, setToken] = useState({ token: "", exp_time: undefined });
-    const lAuthKey = "AKauthData";
     console.log("starting AuthProvider");
 
     useEffect(() => {
-        if (!!localStorage.getItem(lAuthKey)) {
-            const tData = JSON.parse(localStorage.getItem(lAuthKey));
+        if (!!localStorage.getItem(AKData)) {
+            const localAppData = JSON.parse(localStorage.getItem(AKData));
+            const tData = localAppData.tData
+            const userType = localAppData.userType
             setToken(tData);
+            setUserType(userType);
             setAuth(true);
         }
     }, []);
 
-    const login = (email, password) => {
+    const login = (email, password, userType = userTypes.staff) => {
         const payload = {
             email: email,
             password: password,
@@ -33,8 +37,13 @@ const AuthProvider = (props) => {
             .then((response) => response.json())
             .then((tData) => {
                 setToken(tData);
-                const tDataStr = JSON.stringify(tData);
-                localStorage.setItem(lAuthKey, tDataStr);
+                setUserType(userType);
+                const localAppData={
+                    tData:tData,
+                    userType:userType
+                }
+                const tDataStr = JSON.stringify(localAppData);
+                localStorage.setItem(AKData, tDataStr);
                 setAuth(true);
             })
             .catch((error) => {
@@ -53,6 +62,7 @@ const AuthProvider = (props) => {
             value={{
                 token,
                 isAuth,
+                userType,
                 login,
                 logout,
             }}
