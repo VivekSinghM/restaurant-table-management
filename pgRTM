@@ -1,0 +1,1178 @@
+--
+-- PostgreSQL database cluster dump
+--
+
+-- Started on 2022-08-09 14:32:04
+
+SET default_transaction_read_only = off;
+
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+
+--
+-- Roles
+--
+
+CREATE ROLE admin_user1;
+ALTER ROLE admin_user1 WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION NOBYPASSRLS;
+CREATE ROLE postgres;
+ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:jjEfDN0nCtPEB0zVqTwuCw==$X2aO18oLSgukElE8GRrZagQaNx6ZXUAVZHk//Q0LpD8=:mYg6TZpaQew4/l5IycyJDQpZ1y1WNk7yhaxj7CF4aZU=';
+CREATE ROLE user1;
+ALTER ROLE user1 WITH NOSUPERUSER INHERIT NOCREATEROLE CREATEDB LOGIN REPLICATION NOBYPASSRLS CONNECTION LIMIT 2 PASSWORD 'SCRAM-SHA-256$4096:nFqoyQJJRJQMouZa4dH6mw==$9gV//JIBPdgTvD0R6ntX7rvjIf0C6zt7QshGHX9/0Mc=:tF9YvNgX+cw84C34wrJ6rkAC/q3YbICht8kF0JKRMak=';
+COMMENT ON ROLE user1 IS 'user1';
+
+
+
+
+
+
+--
+-- Databases
+--
+
+--
+-- Database "template1" dump
+--
+
+\connect template1
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.4
+-- Dumped by pg_dump version 14.4
+
+-- Started on 2022-08-09 14:32:04
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+-- Completed on 2022-08-09 14:32:05
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "RTM_DB" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.4
+-- Dumped by pg_dump version 14.4
+
+-- Started on 2022-08-09 14:32:05
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3376 (class 1262 OID 32800)
+-- Name: RTM_DB; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE "RTM_DB" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'English_India.1252';
+
+
+ALTER DATABASE "RTM_DB" OWNER TO postgres;
+
+\connect "RTM_DB"
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 210 (class 1259 OID 32802)
+-- Name: RM_USER; Type: TABLE; Schema: public; Owner: user1
+--
+
+CREATE TABLE public."RM_USER" (
+    id integer NOT NULL,
+    public_id character varying(50),
+    name character varying(100),
+    email character varying(70),
+    password character varying(200)
+);
+
+
+ALTER TABLE public."RM_USER" OWNER TO user1;
+
+--
+-- TOC entry 209 (class 1259 OID 32801)
+-- Name: RM_USER_id_seq; Type: SEQUENCE; Schema: public; Owner: user1
+--
+
+CREATE SEQUENCE public."RM_USER_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."RM_USER_id_seq" OWNER TO user1;
+
+--
+-- TOC entry 3377 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: RM_USER_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user1
+--
+
+ALTER SEQUENCE public."RM_USER_id_seq" OWNED BY public."RM_USER".id;
+
+
+--
+-- TOC entry 216 (class 1259 OID 32836)
+-- Name: item_region; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.item_region (
+    id integer NOT NULL,
+    name character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.item_region OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 32835)
+-- Name: item_region_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.item_region_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.item_region_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3378 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: item_region_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.item_region_id_seq OWNED BY public.item_region.id;
+
+
+--
+-- TOC entry 214 (class 1259 OID 32827)
+-- Name: item_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.item_type (
+    id integer NOT NULL,
+    name character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.item_type OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 32826)
+-- Name: item_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.item_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.item_type_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3379 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: item_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.item_type_id_seq OWNED BY public.item_type.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 32887)
+-- Name: menu; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.menu (
+    item_id integer NOT NULL,
+    item_name character varying(150) NOT NULL,
+    item_type integer,
+    item_region integer,
+    item_price integer NOT NULL,
+    item_description character varying(200),
+    item_img character varying(500)
+);
+
+
+ALTER TABLE public.menu OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 32886)
+-- Name: menu_item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.menu_item_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.menu_item_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3380 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: menu_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.menu_item_id_seq OWNED BY public.menu.item_id;
+
+
+--
+-- TOC entry 219 (class 1259 OID 32908)
+-- Name: t1; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.t1 (
+    t1_id integer NOT NULL,
+    namex character varying(30)
+);
+
+
+ALTER TABLE public.t1 OWNER TO postgres;
+
+--
+-- TOC entry 212 (class 1259 OID 32813)
+-- Name: table; Type: TABLE; Schema: public; Owner: user1
+--
+
+CREATE TABLE public."table" (
+    table_id integer NOT NULL,
+    table_no character varying(20) NOT NULL,
+    table_order character varying(50),
+    occupied boolean NOT NULL
+);
+
+
+ALTER TABLE public."table" OWNER TO user1;
+
+--
+-- TOC entry 211 (class 1259 OID 32812)
+-- Name: table_table_id_seq; Type: SEQUENCE; Schema: public; Owner: user1
+--
+
+CREATE SEQUENCE public.table_table_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.table_table_id_seq OWNER TO user1;
+
+--
+-- TOC entry 3381 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: table_table_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user1
+--
+
+ALTER SEQUENCE public.table_table_id_seq OWNED BY public."table".table_id;
+
+
+--
+-- TOC entry 3188 (class 2604 OID 32805)
+-- Name: RM_USER id; Type: DEFAULT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."RM_USER" ALTER COLUMN id SET DEFAULT nextval('public."RM_USER_id_seq"'::regclass);
+
+
+--
+-- TOC entry 3191 (class 2604 OID 32839)
+-- Name: item_region id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.item_region ALTER COLUMN id SET DEFAULT nextval('public.item_region_id_seq'::regclass);
+
+
+--
+-- TOC entry 3190 (class 2604 OID 32830)
+-- Name: item_type id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.item_type ALTER COLUMN id SET DEFAULT nextval('public.item_type_id_seq'::regclass);
+
+
+--
+-- TOC entry 3192 (class 2604 OID 32890)
+-- Name: menu item_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.menu ALTER COLUMN item_id SET DEFAULT nextval('public.menu_item_id_seq'::regclass);
+
+
+--
+-- TOC entry 3189 (class 2604 OID 32816)
+-- Name: table table_id; Type: DEFAULT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."table" ALTER COLUMN table_id SET DEFAULT nextval('public.table_table_id_seq'::regclass);
+
+
+--
+-- TOC entry 3361 (class 0 OID 32802)
+-- Dependencies: 210
+-- Data for Name: RM_USER; Type: TABLE DATA; Schema: public; Owner: user1
+--
+
+COPY public."RM_USER" (id, public_id, name, email, password) FROM stdin;
+2	d4b0f89f-9609-4096-b184-12fdd1b1ffd3	vvk	v@test.com	pbkdf2:sha256:260000$0XYkMSPYbqxvrNsc$1fbe845bc3de758922ee813db77101bec50591f0dd9866d253f26a0d6dfbd0ca
+\.
+
+
+--
+-- TOC entry 3367 (class 0 OID 32836)
+-- Dependencies: 216
+-- Data for Name: item_region; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.item_region (id, name) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3365 (class 0 OID 32827)
+-- Dependencies: 214
+-- Data for Name: item_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.item_type (id, name) FROM stdin;
+2	Main Course
+1	Starter
+3	Dessert
+\.
+
+
+--
+-- TOC entry 3369 (class 0 OID 32887)
+-- Dependencies: 218
+-- Data for Name: menu; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.menu (item_id, item_name, item_type, item_region, item_price, item_description, item_img) FROM stdin;
+1	Grasshopper	\N	\N	340	Grasshopper	\N
+2	Lamb shish kabob with vegetables	\N	\N	510	Lamb shish kabob with vegetables, excluding potatoes	\N
+3	Ice cream cake	\N	\N	80	Ice cream cake	\N
+4	Vegetable chicken rice soup	\N	\N	440	Vegetable chicken rice soup, canned, prepared with water or ready-to-serve	\N
+5	Cornmeal beverage with chocolate milk	\N	\N	820	Cornmeal beverage with chocolate milk	\N
+6	Pork roast	\N	\N	940	Pork roast, NS as to cut, cooked, NS as to fat eaten	\N
+7	Oyster pie	\N	\N	200	Oyster pie	\N
+8	Beef and vegetables	\N	\N	780	Beef and vegetables, Hawaiian style	\N
+9	Rice with Spanish sausage	\N	\N	990	Rice with Spanish sausage, Puerto Rican style	\N
+10	Toffee	\N	\N	40	Toffee, plain	\N
+11	Mexican casserole made with ground beef	\N	\N	810	Mexican casserole made with ground beef, beans, tomato sauce, cheese, taco seasonings, and corn chips	\N
+12	Bear	\N	\N	450	Bear, cooked	\N
+13	Alfredo sauce	\N	\N	790	Alfredo sauce	\N
+14	Cucumber and vegetable namasu	\N	\N	600	Cucumber and vegetable namasu	\N
+15	Fried chicken chunks	\N	\N	570	Fried chicken chunks, Puerto Rican style	\N
+16	Safflower oil	\N	\N	30	Safflower oil	\N
+17	Fajita-style beef sandwich with cheese	\N	\N	670	Fajita-style beef sandwich with cheese, on pita bread, with lettuce and tomato	\N
+18	Chili con carne with beans and rice	\N	\N	660	Chili con carne with beans and rice	\N
+19	Vegetable tempura	\N	\N	730	Vegetable tempura	\N
+20	Vegetables and rice	\N	\N	480	Vegetables and rice, baby food, strained	\N
+21	White pizza	\N	\N	140	White pizza, cheese, thin crust	\N
+22	Salmon cake sandwich	\N	\N	750	Salmon cake sandwich	\N
+23	Beef goulash with potatoes	\N	\N	110	Beef goulash with potatoes	\N
+24	Dark-green leafy vegetable soup	\N	\N	400	Dark-green leafy vegetable soup, meatless, Asian style	\N
+25	Roast beef sandwich	\N	\N	890	Roast beef sandwich	\N
+26	Meat with barbecue sauce	\N	\N	880	Meat with barbecue sauce, NS as to type of meat	\N
+27	Pasta with tomato-based sauce and seafood	\N	\N	500	Pasta with tomato-based sauce and seafood, restaurant	\N
+28	Ranch dip	\N	\N	30	Ranch dip, yogurt based	\N
+29	Honey mustard dressing	\N	\N	970	Honey mustard dressing	\N
+30	Croissant sandwich with ham	\N	\N	180	Croissant sandwich with ham, egg, and cheese	\N
+31	Melba toast	\N	\N	730	Melba toast	\N
+32	Apricot	\N	\N	140	Apricot, dried	\N
+33	Eggplant and meat casserole	\N	\N	930	Eggplant and meat casserole	\N
+34	Beef sausage	\N	\N	190	Beef sausage	\N
+35	Porgy	\N	\N	860	Porgy, raw	\N
+36	Asian chicken or turkey garden salad	\N	\N	210	Asian chicken or turkey garden salad, chicken and/or turkey, lettuce, fruit, nuts, no dressing	\N
+37	Pepper	\N	\N	50	Pepper, hot chili, raw	\N
+38	Apple pie filling	\N	\N	150	Apple pie filling	\N
+39	Cereal (Malt-O-Meal Cocoa Dyno-Bites)	\N	\N	620	Cereal (Malt-O-Meal Cocoa Dyno-Bites)	\N
+40	Meat loaf dinner	\N	\N	80	Meat loaf dinner, NFS, frozen meal	\N
+41	Sopaipilla	\N	\N	140	Sopaipilla, without syrup or honey	\N
+42	Pita chips	\N	\N	490	Pita chips	\N
+43	Peppers and onions	\N	\N	740	Peppers and onions, cooked, no added fat	\N
+44	Apple salad with dressing	\N	\N	20	Apple salad with dressing	\N
+45	Peanuts	\N	\N	330	Peanuts, NFS	\N
+46	Ham or pork with tomato-based sauce	\N	\N	390	Ham or pork with tomato-based sauce	\N
+47	Lettuce	\N	\N	140	Lettuce, raw	\N
+48	Alfalfa sprouts	\N	\N	420	Alfalfa sprouts, raw	\N
+49	Canadian Club and soda	\N	\N	820	Canadian Club and soda	\N
+50	Whey	\N	\N	70	Whey, sweet, dry	\N
+51	Water Chesnut	\N	\N	770	Water Chesnut	\N
+52	Beef liver	\N	\N	110	Beef liver, braised	\N
+53	Gumdrops	\N	\N	690	Gumdrops, chocolate covered	\N
+54	Chicken egg foo yung	\N	\N	160	Chicken egg foo yung	\N
+55	Beef and rice with cream sauce	\N	\N	690	Beef and rice with cream sauce	\N
+56	Spaghetti sauce with meat	\N	\N	20	Spaghetti sauce with meat	\N
+57	Salt pork	\N	\N	580	Salt pork, cooked	\N
+58	Croissant sandwich with bacon	\N	\N	340	Croissant sandwich with bacon, egg, and cheese	\N
+59	Buffalo chicken submarine sandwich with cheese	\N	\N	30	Buffalo chicken submarine sandwich with cheese	\N
+60	Quinoa	\N	\N	530	Quinoa, NS as to fat	\N
+61	Sushi	\N	\N	580	Sushi, NFS	\N
+62	Potato from Puerto Rican style stuffed pot roast	\N	\N	920	Potato from Puerto Rican style stuffed pot roast, with gravy	\N
+63	Vodka and tonic	\N	\N	320	Vodka and tonic	\N
+64	Chicken rice soup	\N	\N	250	Chicken rice soup, Puerto Rican style	\N
+65	Beets	\N	\N	760	Beets, raw	\N
+66	Sopa Seca de Fideo	\N	\N	990	Sopa Seca de Fideo, Mexican style, made with dry noodles, home recipe	\N
+67	Grits	\N	\N	360	Grits, NS as to regular, quick, or instant, NS as to fat	\N
+68	Cereal (General Mills Cheerios Chocolate)	\N	\N	170	Cereal (General Mills Cheerios Chocolate)	\N
+69	Chicken chow mein with rice	\N	\N	40	Chicken chow mein with rice, diet frozen meal	\N
+70	Apple-prune juice	\N	\N	260	Apple-prune juice, baby food	\N
+71	Ladoo	\N	\N	530	Ladoo, round ball, Asian-Indian dessert	\N
+72	Chicken cornbread	\N	\N	310	Chicken cornbread	\N
+73	Beef taco filling: beef	\N	\N	460	Beef taco filling: beef, cheese, tomato, taco sauce	\N
+74	Cereal (Post Honey Bunches of Oats with Almonds)	\N	\N	280	Cereal (Post Honey Bunches of Oats with Almonds)	\N
+75	Meat	\N	\N	390	Meat, NFS	\N
+76	Cereal (General Mills Cocoa Puffs)	\N	\N	270	Cereal (General Mills Cocoa Puffs)	\N
+77	Beef and rice with tomato-based sauce	\N	\N	790	Beef and rice with tomato-based sauce	\N
+78	Stewed chitterlings	\N	\N	990	Stewed chitterlings, Puerto Rican style	\N
+79	Chicken "wings" with hot sauce	\N	\N	780	Chicken "wings" with hot sauce, from fast food / restaurant	\N
+80	Puerto Rican white cheese	\N	\N	670	Puerto Rican white cheese	\N
+81	Oat bran cereal	\N	\N	580	Oat bran cereal, cooked, no added fat	\N
+82	Cheese turnover	\N	\N	480	Cheese turnover, Puerto Rican style	\N
+83	Applesauce with bananas	\N	\N	510	Applesauce with bananas, baby food, NS as to strained or junior	\N
+84	Chicken and noodles with vegetable	\N	\N	180	Chicken and noodles with vegetable, dessert, frozen meal	\N
+85	Peach nectar	\N	\N	0	Peach nectar	\N
+86	Coffee and chicory	\N	\N	0	Coffee and chicory, brewed	\N
+87	Peaches	\N	\N	590	Peaches, baby food, NS as to strained or junior	\N
+88	Moo Goo Gai Pan	\N	\N	220	Moo Goo Gai Pan	\N
+89	Double cheeseburger (Burger King)	\N	\N	440	Double cheeseburger (Burger King)	\N
+90	Turkey light or dark meat	\N	\N	820	Turkey light or dark meat, stewed, skin eaten	\N
+91	Cereal (Kellogg's Special K Chocolatey Delight)	\N	\N	170	Cereal (Kellogg's Special K Chocolatey Delight)	\N
+92	Soupy rice with chicken	\N	\N	160	Soupy rice with chicken, Puerto Rican style	\N
+93	Venison/deer jerky	\N	\N	0	Venison/deer jerky	\N
+94	Cereal (Kellogg's Frosted Flakes)	\N	\N	800	Cereal (Kellogg's Frosted Flakes)	\N
+95	Ham or pork and potatoes with gravy	\N	\N	750	Ham or pork and potatoes with gravy	\N
+96	3 Musketeers Truffle Crisp Bar	\N	\N	930	3 Musketeers Truffle Crisp Bar	\N
+97	Baked beans	\N	\N	490	Baked beans	\N
+98	Black beans with meat	\N	\N	630	Black beans with meat	\N
+99	Spanish rice with ground beef	\N	\N	350	Spanish rice with ground beef	\N
+100	Black beans and brown rice	\N	\N	770	Black beans and brown rice	\N
+\.
+
+
+--
+-- TOC entry 3370 (class 0 OID 32908)
+-- Dependencies: 219
+-- Data for Name: t1; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.t1 (t1_id, namex) FROM stdin;
+1	vvk
+\.
+
+
+--
+-- TOC entry 3363 (class 0 OID 32813)
+-- Dependencies: 212
+-- Data for Name: table; Type: TABLE DATA; Schema: public; Owner: user1
+--
+
+COPY public."table" (table_id, table_no, table_order, occupied) FROM stdin;
+2	0	\N	f
+3	1	\N	f
+4	2	\N	f
+5	3	\N	f
+6	4	\N	f
+7	5	\N	f
+1	01	62f15a3ce67a192acb484953	t
+\.
+
+
+--
+-- TOC entry 3382 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: RM_USER_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user1
+--
+
+SELECT pg_catalog.setval('public."RM_USER_id_seq"', 2, true);
+
+
+--
+-- TOC entry 3383 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: item_region_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.item_region_id_seq', 1, false);
+
+
+--
+-- TOC entry 3384 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: item_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.item_type_id_seq', 3, true);
+
+
+--
+-- TOC entry 3385 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: menu_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.menu_item_id_seq', 134, true);
+
+
+--
+-- TOC entry 3386 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: table_table_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user1
+--
+
+SELECT pg_catalog.setval('public.table_table_id_seq', 7, true);
+
+
+--
+-- TOC entry 3194 (class 2606 OID 32811)
+-- Name: RM_USER RM_USER_email_key; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."RM_USER"
+    ADD CONSTRAINT "RM_USER_email_key" UNIQUE (email);
+
+
+--
+-- TOC entry 3196 (class 2606 OID 32807)
+-- Name: RM_USER RM_USER_pkey; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."RM_USER"
+    ADD CONSTRAINT "RM_USER_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3198 (class 2606 OID 32809)
+-- Name: RM_USER RM_USER_public_id_key; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."RM_USER"
+    ADD CONSTRAINT "RM_USER_public_id_key" UNIQUE (public_id);
+
+
+--
+-- TOC entry 3210 (class 2606 OID 32843)
+-- Name: item_region item_region_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.item_region
+    ADD CONSTRAINT item_region_name_key UNIQUE (name);
+
+
+--
+-- TOC entry 3212 (class 2606 OID 32841)
+-- Name: item_region item_region_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.item_region
+    ADD CONSTRAINT item_region_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3206 (class 2606 OID 32834)
+-- Name: item_type item_type_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.item_type
+    ADD CONSTRAINT item_type_name_key UNIQUE (name);
+
+
+--
+-- TOC entry 3208 (class 2606 OID 32832)
+-- Name: item_type item_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.item_type
+    ADD CONSTRAINT item_type_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3214 (class 2606 OID 32896)
+-- Name: menu menu_item_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.menu
+    ADD CONSTRAINT menu_item_name_key UNIQUE (item_name);
+
+
+--
+-- TOC entry 3216 (class 2606 OID 32894)
+-- Name: menu menu_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.menu
+    ADD CONSTRAINT menu_pkey PRIMARY KEY (item_id);
+
+
+--
+-- TOC entry 3218 (class 2606 OID 32912)
+-- Name: t1 t1_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.t1
+    ADD CONSTRAINT t1_pkey PRIMARY KEY (t1_id);
+
+
+--
+-- TOC entry 3200 (class 2606 OID 32818)
+-- Name: table table_pkey; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."table"
+    ADD CONSTRAINT table_pkey PRIMARY KEY (table_id);
+
+
+--
+-- TOC entry 3202 (class 2606 OID 32820)
+-- Name: table table_table_no_key; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."table"
+    ADD CONSTRAINT table_table_no_key UNIQUE (table_no);
+
+
+--
+-- TOC entry 3204 (class 2606 OID 32825)
+-- Name: table table_table_order_key; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."table"
+    ADD CONSTRAINT table_table_order_key UNIQUE (table_order);
+
+
+--
+-- TOC entry 3220 (class 2606 OID 32902)
+-- Name: menu menu_item_region_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.menu
+    ADD CONSTRAINT menu_item_region_fkey FOREIGN KEY (item_region) REFERENCES public.item_region(id);
+
+
+--
+-- TOC entry 3219 (class 2606 OID 32897)
+-- Name: menu menu_item_type_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.menu
+    ADD CONSTRAINT menu_item_type_fkey FOREIGN KEY (item_type) REFERENCES public.item_type(id);
+
+
+-- Completed on 2022-08-09 14:32:06
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "flask_pg" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.4
+-- Dumped by pg_dump version 14.4
+
+-- Started on 2022-08-09 14:32:06
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3345 (class 1262 OID 16396)
+-- Name: flask_pg; Type: DATABASE; Schema: -; Owner: user1
+--
+
+CREATE DATABASE flask_pg WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'English_India.1252';
+
+
+ALTER DATABASE flask_pg OWNER TO user1;
+
+\connect flask_pg
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 210 (class 1259 OID 24598)
+-- Name: RM_USER; Type: TABLE; Schema: public; Owner: user1
+--
+
+CREATE TABLE public."RM_USER" (
+    id integer NOT NULL,
+    public_id character varying(50),
+    name character varying(100),
+    email character varying(70),
+    password character varying(200)
+);
+
+
+ALTER TABLE public."RM_USER" OWNER TO user1;
+
+--
+-- TOC entry 209 (class 1259 OID 24597)
+-- Name: RM_USER_id_seq; Type: SEQUENCE; Schema: public; Owner: user1
+--
+
+CREATE SEQUENCE public."RM_USER_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."RM_USER_id_seq" OWNER TO user1;
+
+--
+-- TOC entry 3346 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: RM_USER_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user1
+--
+
+ALTER SEQUENCE public."RM_USER_id_seq" OWNED BY public."RM_USER".id;
+
+
+--
+-- TOC entry 214 (class 1259 OID 32790)
+-- Name: table; Type: TABLE; Schema: public; Owner: user1
+--
+
+CREATE TABLE public."table" (
+    table_id integer NOT NULL,
+    table_no character varying(20) NOT NULL,
+    table_order character varying(12),
+    occupied boolean NOT NULL
+);
+
+
+ALTER TABLE public."table" OWNER TO user1;
+
+--
+-- TOC entry 213 (class 1259 OID 32789)
+-- Name: table_table_id_seq; Type: SEQUENCE; Schema: public; Owner: user1
+--
+
+CREATE SEQUENCE public.table_table_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.table_table_id_seq OWNER TO user1;
+
+--
+-- TOC entry 3347 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: table_table_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user1
+--
+
+ALTER SEQUENCE public.table_table_id_seq OWNED BY public."table".table_id;
+
+
+--
+-- TOC entry 212 (class 1259 OID 24609)
+-- Name: user; Type: TABLE; Schema: public; Owner: user1
+--
+
+CREATE TABLE public."user" (
+    id integer NOT NULL,
+    public_id character varying(50),
+    name character varying(100),
+    email character varying(70),
+    password character varying(200)
+);
+
+
+ALTER TABLE public."user" OWNER TO user1;
+
+--
+-- TOC entry 211 (class 1259 OID 24608)
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: user1
+--
+
+CREATE SEQUENCE public.user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_id_seq OWNER TO user1;
+
+--
+-- TOC entry 3348 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user1
+--
+
+ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
+
+
+--
+-- TOC entry 3174 (class 2604 OID 24601)
+-- Name: RM_USER id; Type: DEFAULT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."RM_USER" ALTER COLUMN id SET DEFAULT nextval('public."RM_USER_id_seq"'::regclass);
+
+
+--
+-- TOC entry 3176 (class 2604 OID 32793)
+-- Name: table table_id; Type: DEFAULT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."table" ALTER COLUMN table_id SET DEFAULT nextval('public.table_table_id_seq'::regclass);
+
+
+--
+-- TOC entry 3175 (class 2604 OID 24612)
+-- Name: user id; Type: DEFAULT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
+
+
+--
+-- TOC entry 3335 (class 0 OID 24598)
+-- Dependencies: 210
+-- Data for Name: RM_USER; Type: TABLE DATA; Schema: public; Owner: user1
+--
+
+COPY public."RM_USER" (id, public_id, name, email, password) FROM stdin;
+2	1b36dcdd-8fdf-4779-9277-437631e18373			pbkdf2:sha256:260000$6JWPxiMAwPVZ25Zt$7304082f749d775ee6cde759da2c10d17ea93e586965a177661359509252a63a
+1	c19b1fb1-1de0-4f70-b35b-5d4a7b528b68	vivvi	v@test.com	pbkdf2:sha256:260000$HKSUE6KSOrYRf3h9$41ff9e7957067a1a14ddada15833bfc228069034778bb283b2a781e4b8620ca3
+\.
+
+
+--
+-- TOC entry 3339 (class 0 OID 32790)
+-- Dependencies: 214
+-- Data for Name: table; Type: TABLE DATA; Schema: public; Owner: user1
+--
+
+COPY public."table" (table_id, table_no, table_order, occupied) FROM stdin;
+\.
+
+
+--
+-- TOC entry 3337 (class 0 OID 24609)
+-- Dependencies: 212
+-- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: user1
+--
+
+COPY public."user" (id, public_id, name, email, password) FROM stdin;
+1	c19b1fb1-1de0-4f70-b35b-5d4a7b528b68	vivvi	v@test.com	pbkdf2:sha256:260000$HKSUE6KSOrYRf3h9$41ff9e7957067a1a14ddada15833bfc228069034778bb283b2a781e4b8620ca3
+\.
+
+
+--
+-- TOC entry 3349 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: RM_USER_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user1
+--
+
+SELECT pg_catalog.setval('public."RM_USER_id_seq"', 2, true);
+
+
+--
+-- TOC entry 3350 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: table_table_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user1
+--
+
+SELECT pg_catalog.setval('public.table_table_id_seq', 1, false);
+
+
+--
+-- TOC entry 3351 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user1
+--
+
+SELECT pg_catalog.setval('public.user_id_seq', 1, false);
+
+
+--
+-- TOC entry 3178 (class 2606 OID 24607)
+-- Name: RM_USER RM_USER_email_key; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."RM_USER"
+    ADD CONSTRAINT "RM_USER_email_key" UNIQUE (email);
+
+
+--
+-- TOC entry 3180 (class 2606 OID 24603)
+-- Name: RM_USER RM_USER_pkey; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."RM_USER"
+    ADD CONSTRAINT "RM_USER_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3182 (class 2606 OID 24605)
+-- Name: RM_USER RM_USER_public_id_key; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."RM_USER"
+    ADD CONSTRAINT "RM_USER_public_id_key" UNIQUE (public_id);
+
+
+--
+-- TOC entry 3190 (class 2606 OID 32795)
+-- Name: table table_pkey; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."table"
+    ADD CONSTRAINT table_pkey PRIMARY KEY (table_id);
+
+
+--
+-- TOC entry 3192 (class 2606 OID 32797)
+-- Name: table table_table_no_key; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."table"
+    ADD CONSTRAINT table_table_no_key UNIQUE (table_no);
+
+
+--
+-- TOC entry 3194 (class 2606 OID 32799)
+-- Name: table table_table_order_key; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."table"
+    ADD CONSTRAINT table_table_order_key UNIQUE (table_order);
+
+
+--
+-- TOC entry 3184 (class 2606 OID 24618)
+-- Name: user user_email_key; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 3186 (class 2606 OID 24614)
+-- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3188 (class 2606 OID 24616)
+-- Name: user user_public_id_key; Type: CONSTRAINT; Schema: public; Owner: user1
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_public_id_key UNIQUE (public_id);
+
+
+-- Completed on 2022-08-09 14:32:07
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "flast_pg" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.4
+-- Dumped by pg_dump version 14.4
+
+-- Started on 2022-08-09 14:32:07
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3303 (class 1262 OID 16395)
+-- Name: flast_pg; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE flast_pg WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'English_India.1252';
+
+
+ALTER DATABASE flast_pg OWNER TO postgres;
+
+\connect flast_pg
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+-- Completed on 2022-08-09 14:32:09
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "postgres" dump
+--
+
+\connect postgres
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.4
+-- Dumped by pg_dump version 14.4
+
+-- Started on 2022-08-09 14:32:09
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 2 (class 3079 OID 16384)
+-- Name: adminpack; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS adminpack WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 3304 (class 0 OID 0)
+-- Dependencies: 2
+-- Name: EXTENSION adminpack; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION adminpack IS 'administrative functions for PostgreSQL';
+
+
+-- Completed on 2022-08-09 14:32:10
+
+--
+-- PostgreSQL database dump complete
+--
+
+-- Completed on 2022-08-09 14:32:10
+
+--
+-- PostgreSQL database cluster dump complete
+--
+
