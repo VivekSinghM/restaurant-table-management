@@ -1,30 +1,25 @@
 import React, { useContext, useState } from 'react'
-import { TableContext } from '../../context/TableProvicer';
-import ConfirmOrder from '../confirm/ConfirmOrder';
+import { TableContext } from '../../context/TableDataProvider';
+import CurrentOrder from '../orderWindow/CurrentOrder';
+// import ConfirmOrder from '../confirm/ConfirmOrder';
 import Tables from './tables/Tables'
-const DineIn=()=>{
+const Dashboard=()=>{
     const [orderWindow,setOrderWindow]= useState(false)
-    const {orders} = useContext(TableContext);
     const [currentTId,setCurrentTId] = useState(undefined);
-    const [currentOId,setCurrentOId] = useState(undefined);
-    const [orderToOpen,setOrderToOpen] = useState({});
-    const orderWindowToggle=(tId,oId,order)=>{
-      console.log('window',tId,order);
+
+    const orderWindowToggle=(tId)=>{
+      // console.log('window',tId);
         if (!orderWindow) {
           setCurrentTId(tId)
-          if (!!oId) setCurrentOId(oId)
-          setOrderToOpen(order)
         }else{
           setCurrentTId(undefined)
-          setCurrentOId(undefined)
-          setOrderToOpen({});
         }
         setOrderWindow(!orderWindow);
     }
 
     return(
         <>
-        {orderWindow?<ConfirmOrder back={orderWindowToggle} orderItems={orderToOpen} tId={currentTId} oId={currentOId}/>:<></>}
+        {orderWindow?<CurrentOrder back={orderWindowToggle} tId={currentTId}/>:<></>}
         <div className= "container bg-light">
               <br/>
               <div className="row">
@@ -51,4 +46,4 @@ const DineIn=()=>{
         </>
     )
 }
-export default DineIn
+export default Dashboard
