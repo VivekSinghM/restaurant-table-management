@@ -54,7 +54,7 @@ def getLogin():
     if check_password_hash(password,payload['password']):
         token= Token.get_token( public_id,30)
 
-        return make_response( jsonify({ "token": token}), 201)
+        return make_response( jsonify({"token": token,"exp_time":30}), 201)
     print(password,payload['password'])
     return make_response(
         'Could not verify',

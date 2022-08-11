@@ -26,12 +26,12 @@ def load_table_data():
     t_data = Table.get_Table(args.get("tId")).__dict__
     return make_response( jsonify(t_data) ,201)
 
-@app.route('/order', methods=['POST'])
+@app.route('/place_order', methods=['POST'])
 def place_order():
     tid = request.args.get('tid')
     print(json.loads(request.data))
     order= json.loads(request.data)['order']
-    order_id=Table.add_order(tid,order)
+    order_id=Table.create_order(tid,order)
     return jsonify({'order_id':order_id})
 
 @app.route('/getOrders', methods=['POST'])

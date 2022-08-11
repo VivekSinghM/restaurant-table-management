@@ -43,8 +43,8 @@ class Menu(db.Model):
 
     @staticmethod
     def get_menu_dict():
-        TempMenu.set_menu({k: v for d in Menu.get_menu() for k, v in d.serialize.items()})
-        return True
+        # TempMenu.set_menu()
+        return {k: v for d in Menu.get_menu() for k, v in d.serialize.items()}
 
     @property
     def serialize(self):
@@ -91,7 +91,11 @@ class TempMenu:
     @staticmethod
     def add_special(item):
         TempMenu.specialMenu.update(item)
-
+        
+    @staticmethod
+    def load_All_Menu():
+        TempMenu.set_menu(Menu.get_menu_dict())
+        return True
 
 class ComboMenu(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -141,6 +145,3 @@ class SpecialMenu(db.Model):
         }}
 
 
-def load_All_Menu():
-    pass
-    return True
