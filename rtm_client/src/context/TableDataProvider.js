@@ -8,6 +8,7 @@ const TableDataProvicer = (props) => {
     const [tableData, setTableData] = useState(inisitalData.tableData);
 
     const setOrderId=(tid,oid,order)=>{
+        console.log("tid:",tid,"oid:",oid,order);
         const tempdict = {...tableData};
         const table = tempdict[tid];
         table.order_id = oid;
