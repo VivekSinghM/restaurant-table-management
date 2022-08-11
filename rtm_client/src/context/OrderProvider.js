@@ -9,7 +9,7 @@ const OrderProvider = props => {
     const placeOrder = (orderItems, tid, setOID) => {
         console.log("placing order for table:", tid);
         const payload = { order: orderItems }
-        fetch('/placeOrder?tid=' + tid, {
+        fetch('/place_order?tid=' + tid, {
             method: "POST",
             headers: {
                 "Accept": "appliation/json",
@@ -21,7 +21,7 @@ const OrderProvider = props => {
                 const tempOrder = { order_id: res.order_id, order: orderItems };
                 console.log("order placed", tempOrder);
                 setOrder(tempOrder);
-                setOID(res.order_id,orderItems);
+                setOID(tid,res.order_id,orderItems);
             }
             )
             .catch(error => console.log(error));
