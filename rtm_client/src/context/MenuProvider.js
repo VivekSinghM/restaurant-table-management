@@ -5,6 +5,7 @@ export const MenuCard = createContext();
 const MenuProvider=props=>{
     const [menu,setMenu]=useState(undefined);
     useEffect(_=>{
+        console.log("setting up menu");
         if (menu==undefined){
             console.log("sending req for menu");
             fetch('/getMenu')

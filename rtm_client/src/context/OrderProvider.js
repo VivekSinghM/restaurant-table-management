@@ -4,8 +4,10 @@ export const OrderContext = createContext()
 
 const OrderProvider = props => {
     // const [order,setOrder] = useState({'62f025e9a5cf024b91afb560': {1: 1, 3: 1, 6: 1}})
-    const [order, setOrder] = useState({})
-    const placeOrder = (orderItems, tid) => {
+    const [order, setOrder] = useState({});
+
+    const placeOrder = (orderItems, tid, setOID) => {
+        console.log("placing order for table:", tid);
         const payload = { order: orderItems }
         fetch('/placeOrder?tid=' + tid, {
             method: "POST",
@@ -16,11 +18,10 @@ const OrderProvider = props => {
             body: JSON.stringify(payload),
         })
             .then(res => res.json()).then(res => {
-                const tempOrder = {}
-                tempOrder.oId = res.order_id;
-                tempOrder.order = orderItems;
-                console.log("order id:", tempOrder);
+                const tempOrder = { order_id: res.order_id, order: orderItems };
+                console.log("order placed", tempOrder);
                 setOrder(tempOrder);
+                setOID(res.order_id,orderItems);
             }
             )
             .catch(error => console.log(error));
@@ -40,10 +41,10 @@ const OrderProvider = props => {
         })
             .then(res => res.json())
             .then(res => {
-                 const orderId = res.order_id;
-                 console.log("order id:", orderId);
-                 setOrder({ orderId: orderItems }) 
-                })
+                const orderId = res.order_id;
+                console.log("order id:", orderId);
+                setOrder({ orderId: orderItems })
+            })
             .catch(error => console.log(error));
     }
 
@@ -70,7 +71,7 @@ const OrderProvider = props => {
 
     return (
         <>
-            <OrderContext.Provider value={{ order, updateOrder }}>
+            <OrderContext.Provider value={{ order, placeOrder, updateOrder }}>
                 {props.children}
             </OrderContext.Provider>
         </>

@@ -25,17 +25,17 @@ const Navbar = (props) => {
                     <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                {(userType == userTypes.staff) ? <NavLink className="nav-link" activeClassName='active' to='/dashboad'>dashboad</NavLink> : <NavLink className="nav-link" activeClassName='active' to='/home'>Home</NavLink>}
+                                {(userType == userTypes.staff) ? <NavLink className="nav-link" activeClassName='active' to='/dashboard'>dashboard</NavLink> : <NavLink className="nav-link" activeClassName='active' to='/home'>Home</NavLink>}
                             </li>
                             <li className="nav-item">
                             {(userType == userTypes.staff) ? <NavLink className="nav-link" activeClassName='active' to='/menu'>Menu Card</NavLink> : <></>}
                             </li>
                             <li className="nav-item">
-                                {(userType == userTypes.staff) ?<NavLink className="nav-link" activeClassName='active' to='/menu'>Orders</NavLink> : <NavLink className="nav-link" activeClassName='active' to='/menu'>your Order</NavLink>}
+                                {(userType == userTypes.staff) ?<NavLink className="nav-link" activeClassName='active' to='/Orders'>Orders</NavLink> : <NavLink className="nav-link" activeClassName='active' to='/yourOrders'>your Order</NavLink>}
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="material-symbols-outlined">account_circle</span><span class="material-symbols-outlined">arrow_drop_down</span>
+                                <span className="material-symbols-outlined">account_circle</span><span className="material-symbols-outlined">arrow_drop_down</span>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     {userType==userTypes.anonymous?<></>:

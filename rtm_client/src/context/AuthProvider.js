@@ -53,6 +53,7 @@ const AuthProvider = (props) => {
 
     const logout = () => {
         setToken({ token: "", exp_time: undefined });
+        setUserType(userTypes.anonymous)
         setAuth(false);
         localStorage.removeItem("auth");
     };
