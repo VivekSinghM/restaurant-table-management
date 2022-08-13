@@ -1,12 +1,10 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-const Table = props => {
-    const isOccupied = props.tData.occupied
-    const badgeBg = isOccupied ? "badge-success" : "badge-secondary"
+const Order = props => {
     let itemsJSX = <h2 className='text-secondary'>No Order</h2>
-    if (props.tData.order_id!=null) {
-        itemsJSX = Object.entries(props.tData.order).map(([name, qty]) => {
+    if (props.order_id!=null) {
+        itemsJSX = Object.entries(props.order).map(([name, qty]) => {
             return <li key={name}><div className="row m-0 d-flex justify-content-between  pr-3"><span>{name}</span><span>- {qty}</span></div></li>
         });
     }
@@ -16,7 +14,6 @@ const Table = props => {
                 <div className="card-header p-2">
                     <div className='row d-flex justify-content-between  m-0' style={{ verticalAlign: 'middle' }}>
                         <h3 className="m-0">T-{Number(props.tId).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}</h3>
-                        <p className={"badge " + badgeBg} style={{ margin: 'auto', marginRight: 0 }}>{isOccupied ? 'Occupied' : 'Free'}</p>
                     </div>
                 </div>
                 <div className="card-body p-2">
@@ -26,25 +23,13 @@ const Table = props => {
                     </ul>
                     <div className='row m-auto'>
                         <div className='col p-0 d-flex'>
-                        {isOccupied ? 
                             <button className="btn btn-dark border-0 p-1" onClick={()=>{props.setIsBill(true); props.openOrder(props.tId);}}>Generate bill</button>
-                            : 
-                            <button className="btn btn-dark border-0 p-1" onClick={() => props.openOrder(props.tId)} >Place order</button>
-                            }
                         </div>
-                        {isOccupied ? 
                             <div className="d-flex align-items-center "><span onClick={() => props.openOrder(props.tId)}>open..</span></div>
-                            :
-                            <></>}
                     </div>
-                    {/* <p className="card-text">order 1</p>
-                    <div className='row m-auto'>
-                        <div className='col p-0'><a href="#" className="btn btn-primary">Generate bill</a></div>
-                        <div className="d-flex align-items-center font-weight-bold"><label className="m-0">total: 123.12</label></div>
-                    </div> */}
                 </div>
             </div>
         </div>
     )
 }
-export default Table
+export default Order

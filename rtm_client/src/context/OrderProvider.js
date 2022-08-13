@@ -1,4 +1,5 @@
 import React, { useState, createContext } from "react";
+import { server_URI } from "../Constants";
 
 export const OrderContext = createContext()
 
@@ -9,7 +10,7 @@ const OrderProvider = props => {
     const placeOrder = (orderItems, tid, setOID) => {
         console.log("placing order for table:", tid);
         const payload = { order: orderItems }
-        fetch('/place_order?tid=' + tid, {
+        fetch(server_URI+'/place_order?tid=' + tid, {
             method: "POST",
             headers: {
                 "Accept": "appliation/json",
@@ -26,12 +27,13 @@ const OrderProvider = props => {
             )
             .catch(error => console.log(error));
     }
+
     const updateOrder = (orderItems, tId, oId) => {
         const payload = {
             order_id: oId,
             order: orderItems
         }
-        fetch('/updateOrder?tid=' + tId, {
+        fetch(server_URI+'/updateOrder?tid=' + tId, {
             method: "POST",
             headers: {
                 "Accept": "appliation/json",
@@ -44,6 +46,26 @@ const OrderProvider = props => {
                 const orderId = res.order_id;
                 console.log("order id:", orderId);
                 setOrder({ orderId: orderItems })
+            })
+            .catch(error => console.log(error));
+    }
+
+    const closeOrder = (oId,paid,fun,tId=0) =>{
+        const payload = {
+            order_id: oId,
+            paid_amount: paid
+        }
+        fetch(server_URI+'/close_order?tid=' + tId, {
+            method: "POST",
+            headers: {
+                "Accept": "appliation/json",
+                "Content-type": "appliation/json",
+            },
+            body: JSON.stringify(payload),
+        })
+            .then(res => res.json())
+            .then(res => {
+                if(res.closed) fun(tId);
             })
             .catch(error => console.log(error));
     }
@@ -71,7 +93,7 @@ const OrderProvider = props => {
 
     return (
         <>
-            <OrderContext.Provider value={{ order, placeOrder, updateOrder }}>
+            <OrderContext.Provider value={{ order, placeOrder, updateOrder, closeOrder }}>
                 {props.children}
             </OrderContext.Provider>
         </>

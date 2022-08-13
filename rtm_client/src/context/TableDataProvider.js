@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { inisitalData } from "../Constants";
+import { inisitalData, server_URI } from "../Constants";
 // import { MenuCard } from "./MenuProvider";
 
 export const TableContext = createContext();
@@ -28,7 +28,7 @@ const TableDataProvicer = (props) => {
 
     useEffect(() => {
         console.log("loading tables data");
-        fetch("/tables")
+        fetch(server_URI+"/tables")
             .then((res) => res.json())
             .then((data) => {
                 setTableData(data);

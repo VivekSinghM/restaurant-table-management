@@ -10,10 +10,10 @@ import ItemSearch from "../ItemSearch/ItemSearch";
 
 const CurrentOrder = props => {
     const { menu } = useContext(MenuCard);
-    const { order, placeOrder, updateOrder } = useContext(OrderContext);
-    const { tableData, setOrderId } = useContext(TableContext);
+    const { placeOrder, updateOrder, closeOrder } = useContext(OrderContext);
+    const { tableData, setOrderId, reSetTable } = useContext(TableContext);
     const [orderEdit, setOrderEdit] = useState(false);
-    const [isMenu, setIsMenu] = useState(false);
+    const [isMenu, setIsMenu] = useState(false); //
     const [isBill, setIsBill] = useState(false);
     const optionList = Object.keys(menu).map(name => { return { value: name, label: name } })
     const selectedOpList = []
@@ -56,7 +56,11 @@ const CurrentOrder = props => {
             placeOrder(orderCopy,props.tId,(tid,oid,order)=>setOrderId(tid,oid,order))
         }
         setOrderEdit(false);
-     } 
+    }
+    
+    const genrateBillHandler=()=>{
+        closeOrder( tData.order_id, subTotal,tid=>reSetTable(tid), props.tId);
+    }
 
     return (
         <>
@@ -143,7 +147,7 @@ const CurrentOrder = props => {
                                 <div className="col p-0 d-flex justify-content-end">
                                     {
                                         isBill ? 
-                                            <button className="btn btn-primary">Print Bill</button>
+                                            <button className="btn btn-primary" onClick={genrateBillHandler}>Print Bill</button>
                                             :
                                             orderEdit? 
                                                 <button className="btn btn-primary" onClick={placeOrderHandler}>Place Order</button> 

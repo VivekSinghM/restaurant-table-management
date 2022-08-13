@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { AKData, userTypes } from "../Constants";
+import { AKData, server_URI, userTypes } from "../Constants";
 
 export const AuthContext = createContext();
 
@@ -26,7 +26,7 @@ const AuthProvider = (props) => {
             email: email,
             password: password,
         };
-        fetch("/login", {
+        fetch(server_URI+"/login", {
             method: "POST",
             headers: {
                 Accept: "appliation/json",
@@ -55,7 +55,7 @@ const AuthProvider = (props) => {
         setToken({ token: "", exp_time: undefined });
         setUserType(userTypes.anonymous)
         setAuth(false);
-        localStorage.removeItem("auth");
+        localStorage.removeItem(AKData);
     };
 
     return (

@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&family=Pacifico&display=swap');
+
+.heading{
+    /* font-family: 'Pacifico', cursive; */
+    font-family: 'Handlee', cursive;
+}
+.menu{
+    background-color: #222222;
+}
+.iconCenter {
+    transform: translate(0px, 2.5px);
+    font-size: 20px;
+}

@@ -1,12 +1,11 @@
-import React, { useContext, useState } from 'react'
-import { TableContext } from '../../context/TableDataProvider';
-import CurrentOrder from '../orderWindow/CurrentOrder';
-// import ConfirmOrder from '../confirm/ConfirmOrder';
-import Tables from './tables/Tables'
-const Dashboard=()=>{
+import React from "react";
+import CurrentOrder from "../orderWindow/CurrentOrder";
+import Orders from "./orders/Orders";
+
+const OrderPage = () =>{
     const [orderWindow,setOrderWindow]= useState(false)
-    const [currentTId,setCurrentTId] = useState(undefined);
-    const [isBill, setIsBill] = useState(false);
+    const [currentOId,setCurrentOId] = useState(undefined);
+    const [isBill, setIsBill] = useState(true);
 
     const orderWindowToggle=(tId)=>{
       // console.log('window',tId);
@@ -20,16 +19,16 @@ const Dashboard=()=>{
 
     return(
         <>
-        {orderWindow?<CurrentOrder back={orderWindowToggle} tId={currentTId} isBill={isBill} setIsBill={setIsBill} />:<></>}
+        {orderWindow?<CurrentOrder back={orderWindowToggle} oid={currentOId} isBill={isBill} setIsBill={()=>{}} />:<></>}
         <div className= "container bg-light">
               <br/>
               <div className="row">
 
                 {/* dinein */}
                 <div className="col">
-                  <h1 className="text-center"> Dine-in </h1>
+                  <h1 className="text-center"> All orders </h1>
                   <br/>
-                    <Tables orderWindowToggle={orderWindowToggle} setIsBill={setIsBill}></Tables>
+                    <Orders orderWindowToggle={orderWindowToggle}></Orders>
                 </div>
 
                 {/* other orders */}
@@ -47,4 +46,3 @@ const Dashboard=()=>{
         </>
     )
 }
-export default Dashboard

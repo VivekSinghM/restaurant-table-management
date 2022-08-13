@@ -1,3 +1,4 @@
+import React from 'react'
 import logo from './image/logo.png'
 import css from "./Logo.module.css"
 

@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react'
 import { TableContext } from '../../../context/TableDataProvider'
-import Table from './table/Table'
+import Order from './order/Order'
 const Tables = props => {
     const { tableData } = useContext(TableContext);
     let tablesJSX=<></>
     if (!tableData.undef) {
         tablesJSX = Object.entries(tableData).map(([tId, tData]) => {
             // console.log(orders[order_id]);
-            return <Table key={tId} tId={tId} tData={tData} openOrder={props.orderWindowToggle} setIsBill={props.setIsBill}/>
+            return <Order key={tId} tId={tId} tData={tData} openOrder={props.orderWindowToggle} setIsBill={props.setIsBill}/>
         });
     }
     return (
@@ -24,4 +24,4 @@ const Tables = props => {
         </>
     )
 }
-export default Tables
+export default Orders
