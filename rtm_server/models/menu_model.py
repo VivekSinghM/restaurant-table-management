@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import null
 from services.database_connector import db
-from models.item_type_model import ItemType, ItemRegion
+from rtm_server.models.item import ItemType, ItemRegion
 
 
 class Menu(db.Model):

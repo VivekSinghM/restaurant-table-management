@@ -1,4 +1,4 @@
-from services.database_connector import db
+from services.db_connector import db
 
 class RM_USER(db.Model):
 
@@ -8,7 +8,7 @@ class RM_USER(db.Model):
     email = db.Column(db.String(70), unique = True)
     password = db.Column(db.String(200))
 
-
+    # get password by email
     @staticmethod
     def get_pass_ID_by_email(email):
         return RM_USER.query.with_entities(RM_USER.password,RM_USER.public_id).filter_by(email=email).first()
@@ -19,6 +19,7 @@ class RM_USER(db.Model):
         db.session.add(self)
         db.session.commit()
         return True
+    
     
     @staticmethod
     def check_user(email):

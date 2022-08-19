@@ -1,5 +1,5 @@
-from services.database_connector import mongo_client
-from models.menu_model import Menu,db
+from services.db_connector import mongo_client
+from models.menu import Menu,db
 result = mongo_client['RTM']['foodx'].aggregate([{'$sample': {'size': 10}}])
 for data in result:
     # id = data['_id']

@@ -1,20 +1,14 @@
-from flask import request, make_response, jsonify
-from sqlalchemy import true 
+from flask import Blueprint, request, make_response, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
 import uuid
-
-from app import app
-from services.database_connector import db
-from models.user_model import RM_USER
 from services.token_manager import Token
 
+from models.user import RM_USER
 
-# @app.route("/users")
-# def users():
-#     return jsonify({'user1':{'name':'vvk'}})
+auth_blueprint= Blueprint( name='auth_blueprint', import_name=__name__)
 
-@app.route("/signup",methods=["POST"])
+@auth_blueprint.route("/signup",methods=["POST"])
 def getSignup():
     payload= json.loads(request.data)
     name, email, password = payload['name'], payload['email'], payload['password']
@@ -32,7 +26,7 @@ def getSignup():
         return make_response('User already exists go to login',202)
 
 
-@app.route("/login",methods=["POST"])
+@auth_blueprint.route("/login",methods=["POST"])
 def getLogin():
     payload= json.loads(request.data)
     print(payload)
@@ -52,10 +46,10 @@ def getLogin():
         )
 
     if check_password_hash(password,payload['password']):
-        token= Token.get_token( public_id,30)
+        token= Token.get_token( public_id, 30)
 
-        return make_response( jsonify({ "token": token}), 201)
-    print(password,payload['password'])
+        return make_response( jsonify({"token": token,"exp_time":30}), 201)
+    # print(password,payload['password'])
     return make_response(
         'Could not verify',
         403,
