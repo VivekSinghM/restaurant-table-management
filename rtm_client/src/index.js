@@ -11,15 +11,15 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <MenuProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <MenuProvider>
           <OrderProvider>
             <TableDataProvicer>
-              <App/>
+              <App />
             </TableDataProvicer>
           </OrderProvider>
-        </AuthProvider>
-      </MenuProvider>
+        </MenuProvider>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

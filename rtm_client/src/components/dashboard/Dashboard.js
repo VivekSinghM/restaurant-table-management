@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { TableContext } from '../../context/TableDataProvider';
-import CurrentOrder from '../orderWindow/CurrentOrder';
+import React, { useState } from 'react'
+import CurrentOrder from '../tableOrderWindow/CurrentOrder';
 // import ConfirmOrder from '../confirm/ConfirmOrder';
 import Tables from './tables/Tables'
 const Dashboard=()=>{

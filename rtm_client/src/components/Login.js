@@ -22,7 +22,7 @@ const Login = (props) => {
         login(email,password,userTypes.staff);
     }
     return (
-        <React.Fragment>
+        <>
             <div className={css.container}>
                 <div className={css.top}></div>
                 <div className={css.bottom}></div>
@@ -51,7 +51,7 @@ const Login = (props) => {
                     <h2>&nbsp;</h2>
                 </form>
             </div>
-        </React.Fragment>
+        </>
     );
 };
 export default Login;
