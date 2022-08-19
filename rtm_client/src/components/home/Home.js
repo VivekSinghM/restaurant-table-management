@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import MenuPage from '../../menuPage/MenuPage';
+import React from 'react'
+import MenuPage from '../menuPage/MenuPage';
 
 const Home = prop =>{
     return (
