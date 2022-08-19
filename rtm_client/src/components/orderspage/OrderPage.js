@@ -1,25 +1,24 @@
-import React from "react";
-import CurrentOrder from "../orderWindow/CurrentOrder";
+import React, { useState } from "react";
+import CurrentOrder from "../tableOrderWindow/CurrentOrder";
 import Orders from "./orders/Orders";
 
 const OrderPage = () =>{
     const [orderWindow,setOrderWindow]= useState(false)
     const [currentOId,setCurrentOId] = useState(undefined);
-    const [isBill, setIsBill] = useState(true);
 
-    const orderWindowToggle=(tId)=>{
+    const orderWindowToggle=(oId)=>{
       // console.log('window',tId);
         if (!orderWindow) {
-          setCurrentTId(tId)
+          setCurrentOId(oId)
         }else{
-          setCurrentTId(undefined)
+          setCurrentOId(undefined)
         }
         setOrderWindow(!orderWindow);
     }
 
     return(
         <>
-        {orderWindow?<CurrentOrder back={orderWindowToggle} oid={currentOId} isBill={isBill} setIsBill={()=>{}} />:<></>}
+        {orderWindow?<CurrentOrder back={orderWindowToggle} oid={currentOId} isBill={true}  />:<></>}
         <div className= "container bg-light">
               <br/>
               <div className="row">
@@ -46,3 +45,4 @@ const OrderPage = () =>{
         </>
     )
 }
+export default OrderPage

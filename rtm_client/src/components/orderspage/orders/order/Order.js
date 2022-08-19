@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 const Order = props => {
     let itemsJSX = <h2 className='text-secondary'>No Order</h2>
-    if (props.order_id!=null) {
-        itemsJSX = Object.entries(props.order).map(([name, qty]) => {
+    if (props.data!=null) {
+        itemsJSX = Object.entries(props.data.order).map(([name, qty]) => {
             return <li key={name}><div className="row m-0 d-flex justify-content-between  pr-3"><span>{name}</span><span>- {qty}</span></div></li>
         });
     }
@@ -13,7 +13,7 @@ const Order = props => {
             <div className="card">
                 <div className="card-header p-2">
                     <div className='row d-flex justify-content-between  m-0' style={{ verticalAlign: 'middle' }}>
-                        <h3 className="m-0">T-{Number(props.tId).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}</h3>
+                        <h6 className="m-0">O-{props.id}</h6>
                     </div>
                 </div>
                 <div className="card-body p-2">
@@ -23,9 +23,8 @@ const Order = props => {
                     </ul>
                     <div className='row m-auto'>
                         <div className='col p-0 d-flex'>
-                            <button className="btn btn-dark border-0 p-1" onClick={()=>{props.setIsBill(true); props.openOrder(props.tId);}}>Generate bill</button>
+                            <button className="btn btn-dark border-0 p-1" onClick={()=>{props.openOrder(props.tId);}}>Open bill</button>
                         </div>
-                            <div className="d-flex align-items-center "><span onClick={() => props.openOrder(props.tId)}>open..</span></div>
                     </div>
                 </div>
             </div>
