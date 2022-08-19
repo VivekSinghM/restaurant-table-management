@@ -1,21 +1,20 @@
-import React, { useState, createContext } from "react";
-import { server_URI } from "../Constants";
+import React, { useState, createContext, useContext } from "react";
+import { header, server_URI } from "../Constants";
+import { AuthContext } from "./AuthProvider";
 
 export const OrderContext = createContext()
 
 const OrderProvider = props => {
-    // const [order,setOrder] = useState({'62f025e9a5cf024b91afb560': {1: 1, 3: 1, 6: 1}})
-    const [order, setOrder] = useState({});
+    const [order, setOrder] = useState();
+    const [orders, setOrders] = useState();
+    const {headerVal} = useContext(AuthContext)
 
     const placeOrder = (orderItems, tid, setOID) => {
         console.log("placing order for table:", tid);
         const payload = { order: orderItems }
         fetch(server_URI+'/place_order?tid=' + tid, {
             method: "POST",
-            headers: {
-                "Accept": "appliation/json",
-                "Content-type": "appliation/json",
-            },
+            headers: headerVal,
             body: JSON.stringify(payload),
         })
             .then(res => res.json()).then(res => {
@@ -35,10 +34,7 @@ const OrderProvider = props => {
         }
         fetch(server_URI+'/updateOrder?tid=' + tId, {
             method: "POST",
-            headers: {
-                "Accept": "appliation/json",
-                "Content-type": "appliation/json",
-            },
+            headers: headerVal,
             body: JSON.stringify(payload),
         })
             .then(res => res.json())
@@ -57,10 +53,7 @@ const OrderProvider = props => {
         }
         fetch(server_URI+'/close_order?tid=' + tId, {
             method: "POST",
-            headers: {
-                "Accept": "appliation/json",
-                "Content-type": "appliation/json",
-            },
+            headers: header,
             body: JSON.stringify(payload),
         })
             .then(res => res.json())
@@ -93,7 +86,7 @@ const OrderProvider = props => {
 
     return (
         <>
-            <OrderContext.Provider value={{ order, placeOrder, updateOrder, closeOrder }}>
+            <OrderContext.Provider value={{ order, placeOrder, updateOrder, closeOrder, orders, setOrders }}>
                 {props.children}
             </OrderContext.Provider>
         </>
