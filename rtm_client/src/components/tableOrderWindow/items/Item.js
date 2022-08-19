@@ -11,7 +11,7 @@ const Item = props=>{
             <span>{props.qty}</span>
           </td>
           <td>{props.amount}</td>
-          { props.isBill ?<></>:
+          {/* { props.isBill ?<></>:
             <td className="pl-0 pr-0" style={{minWidth:"80px"}}>
               <div className="btn-group" role="group" aria-label="Basic example">
                 <button type="button" className={"btn btn-default border border-dark text-weight-bold text-danger btn-sm p-0 "} onClick={() => {}} disabled>
@@ -25,7 +25,7 @@ const Item = props=>{
                   <span className="material-symbols-outlined" style={{transform: 'translate(0px, 2.5px)',fontSize:20}}> restart_alt </span>
                 </button>
             </td> 
-          }
+          } */}
         </tr>
         </>
     )
