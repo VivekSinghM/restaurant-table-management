@@ -10,7 +10,7 @@ const Orders = props => {
         console.log(orders);
         orderJSX = Object.entries(orders).map(([oId, oData]) => {
             // console.log(oData);
-            return <Order key={oId} id={oId} data={oData} openOrder={() => { }} setIsBill={() => { }} />
+            return <Order key={oId} id={oId} data={oData} openOrder={props.orderWindowToggle} setIsBill={() => { }} />
         });
     }
     const loadOrders = () => {

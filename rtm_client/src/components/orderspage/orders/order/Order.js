@@ -23,7 +23,7 @@ const Order = props => {
                     </ul>
                     <div className='row m-auto'>
                         <div className='col p-0 d-flex'>
-                            <button className="btn btn-dark border-0 p-1" onClick={()=>{props.openOrder(props.tId);}}>Open bill</button>
+                            <button className="btn btn-dark border-0 p-1" onClick={()=>{props.openOrder(props.data);}}>Open bill</button>
                         </div>
                     </div>
                 </div>
