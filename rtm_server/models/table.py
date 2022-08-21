@@ -1,4 +1,5 @@
 from datetime import datetime
+import string, random
 from services.db_connector import db, mongo_col
 from models.menu import Menu, TempMenu
 from sqlalchemy import null
@@ -25,13 +26,26 @@ class Table(db.Model):
         except Exception:
             return False
 
+    #  to delete all tables
+    @staticmethod
+    def delete_tables():
+        try:
+            row_delete = Table.__table__.drop(db.engine)
+            Table.__table__.create(db.engine)
+            return True
+        except Exception as e:
+            print('error in deleting table data:',e)
+            return False
+
     #  to add multi. tables in db
     @staticmethod
     def genrate_tables(no_of_table):
         try:
             for i in range(int(no_of_table)):
+                tname=str(i)+ ''.join(random.choice(string.ascii_lowercase) for _ in range(4))
+                print('add :', tname)
                 db.session.add(
-                    Table(table_no=str(i), table_order=None, occupied=False))
+                    Table(table_no= tname, table_order=None, occupied=False))
             db.session.commit()
             return True
         except Exception as e:
@@ -120,7 +134,7 @@ class Table(db.Model):
             order = Order.get_order_items(self.table_order)
         return {
             self.table_id: {
-                "table_no": self.table_no,
+                "table_no": self.table_id,
                 "order_id": self.table_order,
                 "order": order,
                 "occupied": self.occupied,

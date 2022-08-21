@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from constant import *
+from services.db_connector import config_db
 
 app = Flask(__name__)
 app.secret_key = secret_key
@@ -12,20 +13,10 @@ cors=CORS(app,resources={
     }
 })
 
-def config_db():
-    from services.db_connector import db
-    LOCAL_DATABASE_URL = SQL_URI[postgress]
-    app.config['SQLALCHEMY_DATABASE_URI'] = LOCAL_DATABASE_URL
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-    db.app = app
-    db.init_app(app)
-
-config_db()
+config_db(app)
 
 def register_blueprints(app):
     from api.all_api import auth_blueprint, base_blueprint, menu_blueprint, table_blueprint
-
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(base_blueprint)
     app.register_blueprint(menu_blueprint)

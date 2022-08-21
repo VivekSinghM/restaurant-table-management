@@ -28,12 +28,18 @@ def load_table_data():
     t_data = Table.get_Table(args.get("tId")).__dict__
     return make_response( jsonify(t_data) ,201)
 
-
-@table_blueprint.route("/genrate_tables", methods=["GET"])
+@table_blueprint.route("/deleteTables", methods=["DELETE"])
 @auth_token_required
-def genrate_tables():
-    args = request.args
-    t_data = Table.genrate_tables(args.get("totalNo"))
+def delete_tables():
+    t_data = Table.delete_tables()
+    return make_response( jsonify({'isDelete':t_data}) ,201)
+
+@table_blueprint.route("/addTables", methods=["POST"])
+@auth_token_required
+def add_tables():
+    print("data ",request.data)
+    num = json.loads(request.data)['tables']
+    t_data = Table.genrate_tables(num)
     return make_response( jsonify(t_data) ,201)
 
 @table_blueprint.route("/tables", methods=["GET"])
