@@ -7,6 +7,7 @@ import Navbar from './components/UI/navbar/Navbar';
 import { AuthContext } from './context/AuthProvider';
 import MenuPage from './components/menuPage/MenuPage';
 import OrderPage from './components/ordersPage/OrderPage';
+import ManageTables from './components/manageTables/ManageTables';
 
 function App() {
     const {isAuth, userType } = useContext(AuthContext)
@@ -16,15 +17,16 @@ function App() {
         <Navbar/>
         <Switch>
             <Route path="/home" ><Redirect to="/dashboard"/></Route>
-            {isAuth && <Route path="/menu" component={MenuPage}/>}
             {isAuth ?
                 <Route path="/login"><Redirect to="/dashboard"/></Route> 
                 :
                 <Route path="/login" component={Login}></Route>
             }
+            {isAuth && <Route path="/menu" component={MenuPage}/>}
             {!isAuth && <Route path="/dashboard" ><Redirect to='/login'/></Route>}
             {isAuth && <Route path="/dashboard" component={Dashboard}/>}
             {isAuth && <Route path="/Orders" component={OrderPage}/>}
+            {isAuth && <Route path="/manageTables" component={ManageTables}/>}
             <Route exact path="/"><Redirect to="/dashboard"/></Route>
         </Switch>
         </>
