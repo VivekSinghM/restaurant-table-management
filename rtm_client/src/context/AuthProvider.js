@@ -25,7 +25,7 @@ const AuthProvider = (props) => {
             // const tempHeader = { ...headerVal };
             const tempHeader = { ...header };
             tempHeader['token'] = tData.token;
-            console.log("header: ",tempHeader);
+            // console.log("header: ",tempHeader);
             // setHeaderVal(tempHeader);
             setHeader(tempHeader);
             setUserType(userType);

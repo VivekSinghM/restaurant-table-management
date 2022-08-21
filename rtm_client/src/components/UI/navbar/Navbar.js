@@ -40,13 +40,13 @@ const Navbar = (props) => {
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     {userType==userTypes.anonymous?<></>:
                                         <>
-                                            {/* <a className="dropdown-item" href="#">Dine-in</a>
-                                            <a className="dropdown-item" href="#">add user</a>
-                                            <a className="dropdown-item" href="#">Online</a>
-                                            <div className="dropdown-divider"></div> */}
+                                            {/* <a className="dropdown-item" href="#">Dine-in</a> 
+                                            <a className="dropdown-item" href="#">add user</a> */}
+                                            <Link className="dropdown-item" to="/manageTables">Manage Tables</Link>
+                                            <div className="dropdown-divider"></div> 
                                         </>
                                     }
-                                    {isAuth?<a className="dropdown-item pl-2" onClick={logout} >Logout</a>:<a className="dropdown-item pl-2" onClick={loginHandler}>Login</a>}
+                                    {isAuth?<a className="dropdown-item" onClick={logout} >Logout</a>:<a className="dropdown-item pl-2" onClick={loginHandler}>Login</a>}
                                 </div>
                             </li>
                         </ul>

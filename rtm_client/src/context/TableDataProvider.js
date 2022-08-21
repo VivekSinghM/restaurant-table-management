@@ -28,42 +28,45 @@ const TableDataProvicer = (props) => {
         table.occupied = false;
         setTableData(tempdict);
     }
+    const getTables = () => {
+        fetch(server_URI + "/tables", { headers: header })
+            .then((res) => {
+                // check for error response
+                if (!res.ok) {
+                    res.json().then((data) => {
+                        const error = (data && data.message) || res.status;
+                        throw new Error(error);
+                    }).catch((error) => {
+                        console.log("error in loading table:", error);
+                        logout();
+                    })
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setTableData(data);
+                const orderIds = [];
+                Object.entries(data).forEach(([key, val]) => {
+                    if (!!val.order_id) orderIds.push(val.order_id);
+                });
+                // if (orderIds.length > 0) getordersData(orderIds);
+            })
+            .catch((error) => {
+                console.log("error in loading table:", error);
+            });
+    }
 
     useEffect(() => {
         if (isAuth) {
-            // console.log("loading tables data","heade: " , header);
-            fetch(server_URI + "/tables", { headers: header })
-                .then((res) => {
-                    // check for error response
-                    if (!res.ok) {
-                        res.json().then((data) => {
-                            const error = (data && data.message) || res.status;
-                            throw new Error(error);
-                        }).catch((error) => {
-                            console.log("error in loading table:", error);
-                            logout();
-                        })
-                    }
-                    return res.json();
-                })
-                .then((data) => {
-                    setTableData(data);
-                    const orderIds = [];
-                    Object.entries(data).forEach(([key, val]) => {
-                        if (!!val.order_id) orderIds.push(val.order_id);
-                    });
-                    // if (orderIds.length > 0) getordersData(orderIds);
-                })
-                .catch((error) => {
-                    console.log("error in loading table:", error);
-                });
+            console.log("loading tables data");
+            getTables();
         }
     }, [isAuth]);
 
 
     return (
         <>
-            <TableContext.Provider value={{ tableData, setOrderId, reSetTable }}>{props.children}</TableContext.Provider>
+            <TableContext.Provider value={{ tableData, getTables, setOrderId, reSetTable, setTableData }}>{props.children}</TableContext.Provider>
         </>
     );
 };
